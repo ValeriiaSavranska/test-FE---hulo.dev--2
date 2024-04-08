@@ -912,6 +912,7 @@ a:hover svg {
   flex-basis: 75%;
   flex-shrink: 0;
   opacity: 0.4;
+  transition: all 0.5s linear;
 }
 
 .testimonials__item--active {

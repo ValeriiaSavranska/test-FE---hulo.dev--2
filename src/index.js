@@ -15,8 +15,46 @@ for (btn of processItemsBtns) {
 
 // SLIDER
 
+const slider = document.querySelector(".testimonials__list");
+const sliderChildren = [...slider.children];
+
+sliderChildren.slice(0, 2).forEach((slide) => {
+  slider.insertAdjacentHTML("beforeend", slide.outerHTML);
+});
+
 const comments = document.querySelectorAll(".testimonials__item");
+const commentWidth =
+  document.querySelector(".testimonials__item").offsetWidth + 175;
 let step = 0;
+
+for (comment of comments) {
+  comment.addEventListener("click", function () {
+    if (!this.classList.contains("testimonials__item--active")) {
+      step++;
+
+      let scrollWidth = commentWidth * step + "px";
+
+      for (comment of comments) {
+        comment.style.transition = "all 0.5s linear";
+        comment.style.translate = "-" + scrollWidth + " 0";
+        comment.classList.remove("testimonials__item--active");
+      }
+      if (step === 4) {
+        const intervalId = setTimeout(() => {
+          step = 0;
+          scrollWidth = 0;
+          comments[0].classList.add("testimonials__item--active");
+
+          for (comment of comments) {
+            comment.style.transition = "none";
+            comment.style.translate = "0 0";
+          }
+        }, 500);
+      }
+      this.classList.add("testimonials__item--active");
+    }
+  });
+}
 
 // BACK TO TOP
 
